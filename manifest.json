@@ -1,0 +1,6 @@
+{
+  "name": "Jisho Extension",
+  "version": "1.0",
+  "description": "Translate word from Japanese to English",
+  "manifest_version": 2
+}
