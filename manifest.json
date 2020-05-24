@@ -2,5 +2,9 @@
   "name": "Jisho Extension",
   "version": "1.0",
   "description": "Translate word from Japanese to English",
-  "manifest_version": 2
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  }
 }
