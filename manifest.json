@@ -10,5 +10,8 @@
       ],
       "js": ["jquery.js", "content.js"]
     }
-  ]
+  ],
+  "browser_action": {
+    "default_icon": "icon.png"
+  }
 }
