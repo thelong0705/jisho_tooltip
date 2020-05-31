@@ -15,7 +15,8 @@
     "default_icon": "icon.png"
   },
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js", "context_menu.js"],
+    "persistent": false
   },
   "commands": {
     "_execute_browser_action": {
@@ -24,5 +25,8 @@
         "mac": "Command+Shift+Y"
       }
     }
-  }
+  },
+  "permissions": [
+    "contextMenus"
+  ]
 }
