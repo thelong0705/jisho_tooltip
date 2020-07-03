@@ -23,7 +23,7 @@
 				
 				self.__targets = [];
 				
-				$(document.body).on('mouseup', function(e) {
+				$(document.body).on('mouseup', async function(e) {
 					
 					// FF/Webkit : IE
 					var selection = window.getSelection ?
@@ -55,7 +55,7 @@
 								
 								$newNode.tooltipster(target.options);
 								
-								var content = target.callback($newNode.tooltipster('instance'), selectedText);
+								var content = await target.callback($newNode.tooltipster('instance'), selectedText);
 								
 								$newNode
 									.tooltipster('content', content)
