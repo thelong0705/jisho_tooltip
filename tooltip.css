@@ -1,0 +1,20 @@
+.translate{
+  position: absolute;
+  background: blue;
+  display: none;
+  color: white;
+  padding: 5px;  
+}
+
+.translate::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-bottom-color: blue;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100%;
+}

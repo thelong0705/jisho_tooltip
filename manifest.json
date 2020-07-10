@@ -8,8 +8,8 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": ["jquery.js", "tooltipster.bundle.js", "tooltipster-selectableText.js", "content.js"],
-      "css": ["tooltipster.bundle.css"]
+      "js": ["jquery.js", "tooltip.js", "content.js"],
+      "css": ["tooltip.css"]
     }
   ],
   "browser_action": {

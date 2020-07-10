@@ -12,15 +12,6 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-$.tooltipster.startSelectable(
-  'html',
-  async function (instance, selectedText) {
-    let translated = await translate(selectedText)
-    return Promise.resolve(translated);
-  },
-  { animation: 'fade' }
-);
-
 async function translate(word) {
   let jisho_api = "https://cors-anywhere.herokuapp.com/https://jisho.org/api/v1/search/words?keyword="
   let response = await fetch(jisho_api + word, {
