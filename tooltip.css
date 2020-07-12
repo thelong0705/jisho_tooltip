@@ -1,20 +1,57 @@
 .translate{
   position: absolute;
-  background: blue;
+  background: black;
   display: none;
   color: white;
   padding: 5px;  
 }
 
-.translate::before {
+.jisho-arrow {
   content: "";
-  display: inline-block;
   width: 0;
   height: 0;
   border: 5px solid transparent;
-  border-bottom-color: blue;
+  border-bottom-color: black;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   bottom: 100%;
+}
+
+.jisho-loading {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(calc(-50% - 8px));
+  width: 40px;
+  height: 40px;
+}
+
+.jisho-loading div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 8px;
+  background: #fff;
+  animation: jisho-loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.jisho-loading div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.jisho-loading div:nth-child(2) {
+  left: 24px;
+  animation-delay: -0.12s;
+}
+.jisho-loading div:nth-child(3) {
+  left: 40px;
+  animation-delay: 0;
+}
+@keyframes jisho-loading {
+  0% {
+    top: 4px;
+    height: 32px;
+  }
+  50%, 100% {
+    top: 12px;
+    height: 16px;
+  }
 }
