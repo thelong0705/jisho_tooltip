@@ -16,8 +16,8 @@ document.onmouseup = async function () {
   let selectionString = selection.toString().trim();
   if (selectionString) {
     let { x, y, width, height } = selection.getRangeAt(0).getBoundingClientRect()
-    console.log(x, y, width, height)
-    $('.translate').css('top', y + height + 5);
+    let scrollTop = $(window).scrollTop();
+    $('.translate').css('top', scrollTop + y + height + 5);
     $('.translate').css('left', x + width/2 - 15);
     $('.translate').css('right', 'auto');
     $('.jisho-arrow').css('left', 10);
