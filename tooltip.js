@@ -39,7 +39,7 @@ document.onmouseup = async function () {
     
     $('.translate').show();
     $('.jisho-loading').show();
-    let translated = await translate(selectionString)
+    let translated = await translate(selectionString) || "Can't translate this word"
     $('.jisho-loading').hide();
     $('.translated-text').html(`${translated}`)
     let divWidth = $('.translate').width();
@@ -84,5 +84,5 @@ async function translate(word) {
     }
   });
   let responseJson = await response.json();
-  return responseJson.data[0].senses[0].english_definitions.toString();
+  return responseJson.data[0]?.senses[0].english_definitions.toString();
 }
