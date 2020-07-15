@@ -39,15 +39,20 @@ document.onmouseup = async function () {
     
     $('.translate').show();
     $('.jisho-loading').show();
-    let translated = await translate(selectionString) || "Can't translate this word"
-    $('.jisho-loading').hide();
-    $('.translated-text').html(`${translated}`)
-    let divWidth = $('.translate').width();
-    if(translateLeftPosition + divWidth > browserWidth){
-      $('.translate').css('right', translateRightPosition);
-      $('.translate').css('left', 'auto');
-      $('.jisho-arrow').css('right', 10);
-      $('.jisho-arrow').css('left', 'auto')
+    try {
+      var translated = await translate(selectionString) || "Can't translate this word"
+    } catch (error) {
+      translated = "Can't not connect to Internet"
+    } finally {
+      $('.jisho-loading').hide();
+      $('.translated-text').html(`${translated}`)
+      let divWidth = $('.translate').width();
+      if(translateLeftPosition + divWidth > browserWidth){
+        $('.translate').css('right', translateRightPosition);
+        $('.translate').css('left', 'auto');
+        $('.jisho-arrow').css('right', 10);
+        $('.jisho-arrow').css('left', 'auto')
+      }
     }
   }
 };
