@@ -1,13 +1,19 @@
 $(document.body).append(`
   <div class="translate">
-  <div class="jisho-arrow"></div>
-  <div class="jisho-loading">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  <div class="translated-text">
-  </div>
+    <div class="jisho-arrow">
+      <div class="jisho-arrow-inside"></div>
+    </div>
+    <div class="jisho-loading">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="translate-body">
+      <div class="word-not-found">Can not translate this word</div>
+      <div class="furigana"></div>
+      <div class="kanji"></div>
+      <div class="english"></div>
+    </div>
   </div>
 `);
 
@@ -20,7 +26,7 @@ document.onkeydown = function (event) {
 document.onmousedown = function () {
   $('.translate').hide();
   $('.jisho-loading').hide();
-  $('.translated-text').html(``)
+  $('.translate-body').hide();
 }
 
 async function showTooltip() {
@@ -51,13 +57,22 @@ async function showTooltip() {
 
     $('.translate').show();
     $('.jisho-loading').show();
+
     try {
-      var translated = await translate(selectionString) || "Can't translate this word"
+      var translatedJson = await translate(selectionString)
     } catch (error) {
       translated = "Can't not connect to Internet"
     } finally {
       $('.jisho-loading').hide();
-      $('.translated-text').html(`${translated}`)
+      $('.translate-body').show();
+      if(!translatedJson) {
+        $(".word-not-found").show();
+        return;
+      }
+      $(".word-not-found").hide();
+      $('.english').html(`${ translatedJson.senses[0].english_definitions.toString()}`)
+      $('.furigana').html(`${ translatedJson.japanese[0].reading }`)
+      $('.kanji').html(`${ translatedJson.japanese[0].word }`)
       let divWidth = $('.translate').width();
       if (translateLeftPosition + divWidth > browserWidth) {
         $('.translate').css('right', translateRightPosition);
@@ -77,5 +92,5 @@ async function translate(word) {
     }
   });
   let responseJson = await response.json();
-  return responseJson.data[0]?.senses[0].english_definitions.toString();
+  return responseJson.data?.[0];
 }
