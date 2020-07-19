@@ -1,26 +1,33 @@
-$(document.body).append(`
-  <div class="translate">
-    <div class="jisho-arrow">
-      <div class="jisho-arrow-inside"></div>
+$(document).ready(function () {
+  $(document.body).append(`
+    <div class="translate">
+      <div class="jisho-arrow">
+        <div class="jisho-arrow-inside"></div>
+      </div>
+      <div class="jisho-loading">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="translate-body">
+        <div class="word-not-found">Can not translate this word</div>
+        <div class="japanese">
+          <div class="furigana"></div>
+          <div class="kanji"></div>
+          <hr>
+        </div>
+        <div class="english">
+        </div>
+      </div>
     </div>
-    <div class="jisho-loading">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="translate-body">
-      <div class="word-not-found">Can not translate this word</div>
-      <div class="furigana"></div>
-      <div class="kanji"></div>
-      <div class="english"></div>
-    </div>
-  </div>
 `);
+});
+
 
 document.onkeydown = function (event) {
-  if (event.keyCode == 68){ // d button's keycode 
+  if (event.keyCode == 68) { // d button's keycode 
     showTooltip();
-  } 
+  }
 }
 
 document.onmousedown = function () {
@@ -33,11 +40,11 @@ async function showTooltip() {
   let selection = document.getSelection();
   let selectionString = selection.toString().trim();
   if (selectionString) {
-    let browserWidth = $(window).width();
+    let windowWidth = $(window).width();
     let { x, y, width, height } = selection.getRangeAt(0).getBoundingClientRect()
     console.log(x, y, width, height)
     let translateLeftPosition = Math.max(x + width / 2 - 15, 0);
-    let translateRightPosition = Math.max(browserWidth - translateLeftPosition - 30, 0);
+    let translateRightPosition = Math.max(windowWidth - translateLeftPosition - 30, 0);
     let scrollTop = $(window).scrollTop();
     let translateTopPosition = scrollTop + y + height + 5
 
@@ -48,7 +55,8 @@ async function showTooltip() {
     $('.jisho-arrow').css('right', 'auto')
 
     let loadingWidth = $('.jisho-loading').width();
-    if (translateLeftPosition + loadingWidth > browserWidth - 10) {
+    var skewRight = translateLeftPosition + 300 > windowWidth
+    if (skewRight) {
       $('.translate').css('right', translateRightPosition);
       $('.translate').css('left', 'auto');
       $('.jisho-arrow').css('right', 10);
@@ -65,16 +73,17 @@ async function showTooltip() {
     } finally {
       $('.jisho-loading').hide();
       $('.translate-body').show();
-      if(!translatedJson) {
+      if (!translatedJson) {
         $(".word-not-found").show();
         return;
       }
       $(".word-not-found").hide();
-      $('.english').html(`${ translatedJson.senses[0].english_definitions.toString()}`)
-      $('.furigana').html(`${ translatedJson.japanese[0].reading }`)
-      $('.kanji').html(`${ translatedJson.japanese[0].word }`)
+      let englishHTML = translatedJson.senses[0].english_definitions.join(', ');
+      $('.english').html(`${englishHTML}`);
+      $('.furigana').html(`${translatedJson.japanese[0].reading}`)
+      $('.kanji').html(`${translatedJson.japanese[0].word}`)
       let divWidth = $('.translate').width();
-      if (translateLeftPosition + divWidth > browserWidth) {
+      if (skewRight) {
         $('.translate').css('right', translateRightPosition);
         $('.translate').css('left', 'auto');
         $('.jisho-arrow').css('right', 10);
@@ -93,4 +102,29 @@ async function translate(word) {
   });
   let responseJson = await response.json();
   return responseJson.data?.[0];
+}
+
+async function sandBoxMode() {
+  $('.translate').show();
+  $('.translate').css('top', 100);
+  $('.translate').css('left', 100);
+  document.onmousedown = null;
+
+  try {
+    var translatedJson = await translate("接触者")
+  } catch (error) {
+    translated = "Can't not connect to Internet"
+  } finally {
+    $('.jisho-loading').hide();
+    $('.translate-body').show();
+    if (!translatedJson) {
+      $(".word-not-found").show();
+      return;
+    }
+    $(".word-not-found").hide();
+    let englishHTML = translatedJson.senses[0].english_definitions.join(', ');
+    $('.english').html(`${englishHTML}`)
+    $('.furigana').html(`${translatedJson.japanese[0].reading}`)
+    $('.kanji').html(`${translatedJson.japanese[0].word}`)
+  }
 }

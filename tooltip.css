@@ -1,10 +1,10 @@
 .translate{
   position: absolute;
   display: none;
-  max-width: 400px;
+  max-width: 300px;
   min-width: 150px;
   color: black;
-  padding: 5px;
+  padding: 10px;
   z-index: 99999; 
   box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px 0px;
   background-color: rgb(255, 255, 255);
@@ -18,7 +18,7 @@
 .jisho-arrow {
   width: 0;
   height: 0;
-  border: 9px solid transparent;
+  border: 10px solid transparent;
   border-bottom-color: rgb(225, 229, 229);
   border-top-width: 0;
   position: absolute;
@@ -79,4 +79,21 @@
 
 .furigana {
   font-size: 0.75rem;
+}
+
+.japanese {
+  display: block;
+}
+
+.kanji {
+  font-size: 1.25em;
+}
+
+.english { 
+  display: block;
+  word-wrap: break-word;
+}
+
+.word-not-found {
+  display: none;
 }
