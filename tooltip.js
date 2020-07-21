@@ -65,6 +65,7 @@ async function showTooltip() {
 
     $('.translate').show();
     $('.jisho-loading').show();
+    $('.translate-body').hide();
 
     try {
       var translatedJson = await translate(selectionString)
@@ -78,8 +79,12 @@ async function showTooltip() {
         return;
       }
       $(".word-not-found").hide();
-      let englishHTML = translatedJson.senses[0].english_definitions.join(', ');
-      $('.english').html(`${englishHTML}`);
+      let englishHTML = ''
+      for (let index = 0; index < translatedJson.senses.length; index++) {
+        let englishDefinitions = translatedJson.senses[index].english_definitions.join(', ');
+        englishHTML += `<p>${index + 1}. ${englishDefinitions}</p>`
+      }
+      $('.english').html(`${englishHTML}`)
       $('.furigana').html(`${translatedJson.japanese[0].reading}`)
       $('.kanji').html(`${translatedJson.japanese[0].word}`)
       let divWidth = $('.translate').width();
