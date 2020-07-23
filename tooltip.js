@@ -12,8 +12,8 @@ $(document).ready(function () {
       <div class="translate-body">
         <div class="word-not-found">Can not translate this word</div>
         <div class="japanese">
-          <div class="furigana"></div>
-          <div class="kanji"></div>
+          <div class="reading"></div>
+          <div class="word"></div>
           <hr>
         </div>
         <div class="english">
@@ -85,6 +85,15 @@ async function showTooltip() {
         englishHTML += `<p>${index + 1}. ${englishDefinitions}</p>`
       }
       $('.english').html(`${englishHTML}`)
+      
+      if (translatedJson.japanese[0].word) {
+        $('.word').html(`${translatedJson.japanese[0].word}`);
+        $('.reading').html(`${translatedJson.japanese[0].reading}`);
+      } else {
+        $('.word').html(`${translatedJson.japanese[0].reading}`);
+        $('.reading').html(``);
+      }
+      
       $('.furigana').html(`${translatedJson.japanese[0].reading}`)
       $('.kanji').html(`${translatedJson.japanese[0].word}`)
       let divWidth = $('.translate').width();
@@ -107,29 +116,4 @@ async function translate(word) {
   });
   let responseJson = await response.json();
   return responseJson.data?.[0];
-}
-
-async function sandBoxMode() {
-  $('.translate').show();
-  $('.translate').css('top', 100);
-  $('.translate').css('left', 100);
-  document.onmousedown = null;
-
-  try {
-    var translatedJson = await translate("接触者")
-  } catch (error) {
-    translated = "Can't not connect to Internet"
-  } finally {
-    $('.jisho-loading').hide();
-    $('.translate-body').show();
-    if (!translatedJson) {
-      $(".word-not-found").show();
-      return;
-    }
-    $(".word-not-found").hide();
-    let englishHTML = translatedJson.senses[0].english_definitions.join(', ');
-    $('.english').html(`${englishHTML}`)
-    $('.furigana').html(`${translatedJson.japanese[0].reading}`)
-    $('.kanji').html(`${translatedJson.japanese[0].word}`)
-  }
 }

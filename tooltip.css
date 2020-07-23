@@ -77,7 +77,7 @@
   }
 }
 
-.furigana {
+.reading {
   font-size: 0.75rem;
 }
 
@@ -85,7 +85,7 @@
   display: block;
 }
 
-.kanji {
+.word {
   font-size: 1.25em;
 }
 
