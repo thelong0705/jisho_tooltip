@@ -2,14 +2,36 @@ class Tooltip {
   constructor(selection) {
     this.selection = selection;
     this.selectionString = selection.toString().trim();
-    this.arrowHorizontalRelativeDistance = 10;
-    this.tooltipHorizontalPostion = this.centerArrowInsideSelection();
-    this.tooltipVerticalPosition = this.placeTooltipUnderSelection();
-    this.isArrowInTheLeftSide = this.tooltipHorizontalPostion.right === 'auto';
+    if(this.selectionString){
+      this.arrowHorizontalRelativeDistance = 10;
+      this.tooltipHorizontalPostion = this.centerArrowInsideSelection();
+      this.tooltipVerticalPosition = this.placeTooltipUnderSelection();
+      this.isArrowInTheLeftSide = this.tooltipHorizontalPostion.right === 'auto';  
+    }
   }
 
+  getSelectionBoundingRectangle(){
+    let { x, y, width, height } = this.selection.getRangeAt(0).getBoundingClientRect();
+    
+    //handle highlightext span mulitple lines
+    let selectionParentElement = this.selection.anchorNode.parentElement;
+    let fontSize = parseInt(
+      window.getComputedStyle(selectionParentElement, null)
+        .getPropertyValue('font-size')
+    );
+    
+    if (height > fontSize * 2) { // check span multiple line
+      let range = new Range();
+      range.setStart(selectionParentElement.firstChild, this.selection.focusOffset - 1);
+      range.setEnd(selectionParentElement.firstChild, this.selection.focusOffset);
+      width = range.getBoundingClientRect().right - $(selectionParentElement).offset().left;
+    }
+    return { x, y, width, height }
+  }
+
+  
   centerArrowInsideSelection() {
-    let { x, _y, width, _height } = this.selection.getRangeAt(0).getBoundingClientRect();
+    let { x, _y, width, height } = this.getSelectionBoundingRectangle();
     let windowWidth = $(window).width();
     let arrowWidth = parseInt($('.jisho-arrow').css('borderLeft')) + parseInt($('.jisho-arrow').css('borderRight'));
     let arrowChopToTooltipDistance = this.arrowHorizontalRelativeDistance + arrowWidth / 2;
