@@ -3,6 +3,9 @@
   "version": "1.0",
   "description": "Translate word from Japanese to English",
   "manifest_version": 2,
+  "icons": {
+    "512": "images/logo.png"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -12,21 +15,7 @@
       "css": ["tooltip.css"]
     }
   ],
-  "browser_action": {
-    "default_icon": "icon.png"
-  },
-  "background": {
-    "scripts": ["background.js", "context_menu.js"],
-    "persistent": false
-  },
-  "commands": {
-    "_execute_browser_action": {
-      "suggested_key": {
-        "default": "Ctrl+B",
-        "mac": "Command+B"
-      }
-    }
-  },
+
   "permissions": [
     "contextMenus",
     "https://*/"
