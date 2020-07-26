@@ -1,11 +1,10 @@
-.translate{
+.jisho-tooltip {
   position: absolute;
-  display: none;
   max-width: 300px;
   min-width: 150px;
   color: black;
   padding: 10px;
-  z-index: 99999; 
+  z-index: 99999;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px 0px;
   background-color: rgb(255, 255, 255);
   border-radius: 4px;
@@ -15,7 +14,7 @@
   border-image: initial;
 }
 
-.jisho-arrow {
+.jisho-tooltip .jisho-tooltip-arrow {
   width: 0;
   height: 0;
   border: 10px solid transparent;
@@ -25,7 +24,7 @@
   bottom: 100%;
 }
 
-.jisho-arrow-inside{
+.jisho-tooltip .jisho-tooltip-arrow-inside {
   content: "";
   width: 0;
   height: 0;
@@ -37,7 +36,7 @@
   left: -9px;
 }
 
-.jisho-loading {
+.jisho-tooltip .jisho-tooltip-loading {
   display: block;
   position: relative;
   left: 50%;
@@ -46,54 +45,55 @@
   height: 40px;
 }
 
-.jisho-loading div {
+.jisho-tooltip .jisho-tooltip-loading div {
   display: inline-block;
   position: absolute;
   left: 8px;
   width: 8px;
   background: rgb(238, 229, 237);
-  animation: jisho-loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  animation: jisho-tooltip-loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
-.jisho-loading div:nth-child(1) {
+
+.jisho-tooltip .jisho-tooltip-loading div:nth-child(1) {
   left: 8px;
   animation-delay: -0.24s;
 }
-.jisho-loading div:nth-child(2) {
+
+.jisho-tooltip .jisho-tooltip-loading div:nth-child(2) {
   left: 24px;
   animation-delay: -0.12s;
 }
-.jisho-loading div:nth-child(3) {
+
+.jisho-tooltip .jisho-tooltip-loading div:nth-child(3) {
   left: 40px;
   animation-delay: 0;
 }
-@keyframes jisho-loading {
+
+@keyframes jisho-tooltip-loading {
   0% {
     top: 4px;
     height: 32px;
   }
-  50%, 100% {
+  50%,
+  100% {
     top: 12px;
     height: 16px;
   }
 }
 
-.reading {
+.jisho-tooltip .jisho-tooltip-body .reading {
   font-size: 0.75rem;
 }
 
-.japanese {
+.jisho-tooltip .jisho-tooltip-body .japanese {
   display: block;
 }
 
-.word {
+.jisho-tooltip .jisho-tooltip-body .word {
   font-size: 1.25em;
 }
 
-.english { 
+.jisho-tooltip .jisho-tooltip-body .english {
   display: block;
   word-wrap: break-word;
-}
-
-.word-not-found {
-  display: none;
 }
