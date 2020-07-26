@@ -97,3 +97,7 @@
   display: block;
   word-wrap: break-word;
 }
+
+.jisho-tooltip .jisho-tooltip-body p {
+  margin-top: 5px;
+}
