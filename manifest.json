@@ -11,7 +11,7 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": ["jquery.js", "tooltip.js", "content.js"],
+      "js": ["jquery.js", "tooltip.js", "script.js"],
       "css": ["tooltip.css"]
     }
   ],
