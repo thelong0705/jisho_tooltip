@@ -23,9 +23,8 @@ class Tooltip {
     if (height > fontSize * 2) { // check span multiple line
       let range = new Range();
 
-      range.setStart(selectionParentElement.firstChild,
-        this.selection.focusOffset - 1);
-      range.setEnd(selectionParentElement.firstChild, this.selection.focusOffset);
+      range.setStart(this.selection.anchorNode, this.selection.focusOffset);
+      range.setEnd(this.selection.anchorNode, this.selection.focusOffset);
       width = range.getBoundingClientRect().right - $(selectionParentElement).offset().left;
     }
     return { x, y, width, height }
