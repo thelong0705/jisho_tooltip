@@ -1,7 +1,7 @@
 {
-  "name": "Jisho Extension",
+  "name": "Jisho Tooltip Extension",
   "version": "1.0",
-  "description": "Translate word from Japanese to English",
+  "description": "View Japanese - English translation and vice versa easily as you browse the web. Powered by jisho.org API",
   "manifest_version": 2,
   "icons": {
     "512": "images/logo.png"
@@ -14,10 +14,5 @@
       "js": ["jquery.js", "tooltip.js", "script.js"],
       "css": ["tooltip.css"]
     }
-  ],
-
-  "permissions": [
-    "contextMenus",
-    "https://*/"
   ]
 }
